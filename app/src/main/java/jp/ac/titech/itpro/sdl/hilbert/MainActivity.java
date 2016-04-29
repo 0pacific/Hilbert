@@ -10,6 +10,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView levelView;
     private HilbertView hilbertView;
     private final static int MAX_N = 9;
+    private final static String KEY_N = "Main.n";
     private int n = 1;
 
     private static final String TAG = "MainActivity";
@@ -21,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         levelView = (TextView)findViewById(R.id.level_view);
         hilbertView = (HilbertView)findViewById(R.id.hilbert_view);
+
+        if(savedInstanceState != null)
+            n = savedInstanceState.getInt(KEY_N);
     }
 
     @Override
@@ -59,6 +63,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG,"onDestroy");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_N,n);
     }
 
     public void onClickDec(View v) {
